@@ -1,5 +1,7 @@
 class Game {
     constructor() {
+        this.a = 0
+        this.b = 0
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(
             45,    // kąt patrzenia kamery (FOV - field of view)
@@ -44,6 +46,32 @@ class Game {
         orbitControl.addEventListener('change', function () {
             renderer.render(scene, camera)
         });
+        // var objectLoader = new THREE.ObjectLoader();
+        // objectLoader.load("models/mars-rover-spirit-opportunitymtl.json", function (obj) {
+        //     scene.add(obj);
+        // });
+        var loader = new THREE.OBJLoader();
+        loader.load(
+            // resource URL
+            'models/robot-birdface-21.obj',
+            // called when resource is loaded
+            function (object) {
 
+                scene.add(object);
+
+            },
+            // called when loading is in progresses
+            function (xhr) {
+
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+
+            },
+            // called when loading has errors
+            function (error) {
+
+                console.log('An error happened');
+
+            }
+        );
     }
 }

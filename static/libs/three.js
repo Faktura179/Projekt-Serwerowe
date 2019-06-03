@@ -14590,7 +14590,7 @@
 		}() ),
 
 		clone: function () {
-			
+
 			return new this.constructor( this.geometry, this.material ).copy( this );
 
 		}
