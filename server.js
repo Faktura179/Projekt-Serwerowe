@@ -12,16 +12,18 @@ socketio.on('connection', function (client) {
     if(players.length<2){
         players.push(client.id)
     }
-    
 
-    console.log(players)
-    client.emit("connect",{a:true, b: false})
+    socketio.emit("conn",{player:players.length})
 
     client.on("move", function (data) {
         client.broadcast.emit("move", data)
     })
     client.on("disconnect", function () {
-        console.log("klient się rozłącza")
+        if(players.indexOf(client.id)!==-1){
+            players=[]
+            socketio.emit("win",{})
+        }
+        console.log("Client sie rozałączył")
     })
 });
 

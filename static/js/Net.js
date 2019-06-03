@@ -1,12 +1,22 @@
 class Net{
     constructor(){
-        this.io = io()
+        var socket
+        if(confirm("Czy chcesz rozpocząć gre?"))
+            socket = io()
+        else
+            return
+        this.io=socket
         this.myMove=false
-        this.io.on("connect", function(data){
-            console.log(data)
-            //this.myMove=data.move
+        socket.on("conn",function(data){
+            this.player=data.player
+            if(this.player==1){
+                this.myMove=true
+            }
             console.log(this.myMove)
         }.bind(this))
+        socket.on("win",function(data){
+            alert("Wygrałeś!")
+        })
     }
 
     move(argumenty){
