@@ -1,3 +1,8 @@
+var game
+var ui
+var net
 $(document).ready(function(){
-    console.log("dziala")
+    game = new Game()
+    ui = new Ui()
+    net = new Net()
 })
