@@ -15,6 +15,7 @@ class Net{
             console.log(this.myMove)
         }.bind(this))
         socket.on("win",function(data){
+            socket.emit("win",{})
             alert("Wygrałeś!")
         })
     }
