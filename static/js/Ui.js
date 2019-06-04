@@ -14,10 +14,34 @@ class Ui {
                     }
                     break;
                 case "h":
-                    var info = document.createElement("div")
-                    info.innerText = "WITAJ W GRZE WYPRODUKOWANEJ PRZEZ FATUŁA&STRYCZEK \n Aby wykonac ruch, w czasie swojego ruchu kliknij enter lub kliknij przycisk 'RUCH'.\n Celem gdy jest dotarcie do mety, niektore pola mogą ci to ułatwić bądź utrudnić."
-                    info.id = "help"
-                    document.body.appendChild(info)
+                    if (game.openHelp != undefined) {
+                        if (game.openHelp == false) {
+                            var info = document.createElement("div")
+                            game.openHelp = true
+                            info.innerText = "WITAJ W GRZE WYPRODUKOWANEJ PRZEZ FATUŁA&STRYCZEK. \n Aby wykonac ruch, w czasie swojego ruchu kliknij Enter lub kliknij przycisk 'RUCH'.\n Celem gdy jest dotarcie do mety, niektore pola mogą ci to ułatwić bądź utrudnić."
+                            info.id = "help"
+                            var left = window.innerWidth
+                            left = left / 2
+                            left -= 325
+                            info.style.left = left + "px"
+                            document.body.appendChild(info)
+                        }
+                        else {
+                            $("#help").remove()
+                            game.openHelp = false
+                        }
+                    }
+                    else {
+                        var info = document.createElement("div")
+                        game.openHelp = true
+                        info.innerText = "WITAJ W GRZE WYPRODUKOWANEJ PRZEZ FATUŁA&STRYCZEK. \n Aby wykonac ruch, w czasie swojego ruchu kliknij Enter lub kliknij przycisk 'RUCH'.\n Celem gdy jest dotarcie do mety, niektore pola mogą ci to ułatwić bądź utrudnić."
+                        info.id = "help"
+                        var left = window.innerWidth
+                        left = left / 2
+                        left -= 325
+                        info.style.left = left + "px"
+                        document.body.appendChild(info)
+                    }
                     break
                 default:
                     console.log(e.key)

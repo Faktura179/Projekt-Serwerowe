@@ -5,12 +5,12 @@
 }
 #help{
     position: absolute;
-    width: 550px;
+    width: 650px;
     height: 90px;
-    top: 100px;
-    left: 100px;
+    top: 0px;
     margin: 0px auto;
     background-color: #96858F;
     border: 10px #6D7993 double;
     opacity: 0.8;
+    font-family: Book Antiqua;
 }
