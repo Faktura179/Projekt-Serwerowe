@@ -1,12 +1,12 @@
-class Player extends THREE.Object3D{
-    constructor(modelSrc, textureSrc, scale, position, rotationy){
+class Player extends THREE.Object3D {
+    constructor(modelSrc, textureSrc, scale, position, rotationy) {
         super()
-        this.pos=0
+        this.pos = 0
         this.nextBlock
-        this.moves=0
-        this.isMoving=false
+        this.moves = 0
+        this.isMoving = false
 
-        var that= this
+        var that = this
         var loader = new THREE.OBJLoader();
         loader.load(
             // resource URL
@@ -20,10 +20,10 @@ class Player extends THREE.Object3D{
                         child.material = material;
                     }
                 });
-                object.scale.set(scale,scale,scale)
+                object.scale.set(scale, scale, scale)
                 object.position.copy(position)
                 object.rotation.y += rotationy
-                that.obj=object
+                that.obj = object
                 that.add(object);
 
             },
@@ -42,16 +42,18 @@ class Player extends THREE.Object3D{
         );
     }
 
-    move(ilePol){
-        this.moves=ilePol-1
+    move(ilePol) {
+        this.moves = ilePol - 1
         this.pos++
-        this.nextBlock=game.board.pola[this.pos]
-        this.isMoving=true
+        this.nextBlock = game.board.pola[this.pos]
+        this.isMoving = true
     }
-    stand(){
+    stand() {
         console.log("Stop")
-        if(this.nextBlock/*is special*/){
-            /*do something*/
+        console.log(this.nextBlock)
+        if (this.nextBlock.specialAction == true) {
+            console.log("akcja specjalna")
+
         }
     }
 
