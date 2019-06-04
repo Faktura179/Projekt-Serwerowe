@@ -47,7 +47,7 @@ class Game {
                         }
                     }else{
                         if(el.isMoving){
-                            if(el.pos%9==8 || (el.pos%9==1 && el.pos>1)){
+                            if(el.pos%9==7 || (el.pos%9==0 && el.pos>0)){
                                 el.obj.rotation.y+=Math.PI/2
                             }
                             el.stand()

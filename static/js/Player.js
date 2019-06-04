@@ -46,7 +46,6 @@ class Player extends THREE.Object3D{
         this.moves=ilePol-1
         this.pos++
         this.nextBlock=game.board.pola[this.pos]
-        net.move({ilePol:ilePol})
         this.isMoving=true
     }
     stand(){
