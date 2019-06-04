@@ -1,7 +1,6 @@
 class Game {
     constructor() {
-        this.a = 0
-        this.b = 0
+        var that = this
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(
             45,    // kąt patrzenia kamery (FOV - field of view)
@@ -9,13 +8,14 @@ class Game {
             0.1,    // minimalna renderowana odległość
             10000    // maxymalna renderowana odległość od kamery 
         );
+        this.rolling = false
         camera.position.set(1000, 1000, 1000)
         camera.lookAt(0, 0, 0)
         camera.updateProjectionMatrix()
         scene.add(camera)
         var axes = new THREE.AxesHelper(1000)
         scene.add(axes)
-        var renderer = new THREE.WebGLRenderer();
+        var renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setClearColor(0xffffff);
         renderer.setSize(window.innerWidth, window.innerHeight);
         $("#root").append(renderer.domElement);
@@ -36,7 +36,33 @@ class Game {
             //console.log("render leci")
 
             //ciągłe renderowanie / wyświetlanie widoku sceny nasza kamerą
-
+            if (that.rolling == true) {
+                that.dice.rotation.x = Math.PI / 4
+                that.dice.rotation.y += 0.4
+                that.dice.rotation.z += 0.1
+            }
+            else if (that.rolling == false && that.dice != undefined) {
+                that.dice.rotation.x = 0
+                that.dice.rotation.y = 0
+                that.dice.rotation.z = 0
+                if (game.currentNumber != undefined) {
+                    if (game.currentNumber == 2) {
+                        that.dice.rotation.z = Math.PI * 3 / 2
+                    }
+                    else if (game.currentNumber == 3) {
+                        that.dice.rotation.x = Math.PI * 3 / 2
+                    }
+                    else if (game.currentNumber == 4) {
+                        that.dice.rotation.x = Math.PI / 2
+                    }
+                    else if (game.currentNumber == 5) {
+                        that.dice.rotation.z = Math.PI / 2
+                    }
+                    else if (game.currentNumber == 6) {
+                        that.dice.rotation.z = Math.PI
+                    }
+                }
+            }
             renderer.render(scene, camera);
         }
         render()
@@ -55,14 +81,20 @@ class Game {
         //     scene.add(obj);
         //     obj.scale.set(0.4, 0.4, 0.4)
         // });
-
         var loader = new THREE.OBJLoader();
         loader.load(
             // resource URL
             'models/white-dice.obj',
             // called when resource is loaded
             function (object) {
-
+                var material = new THREE.MeshPhongMaterial({ color: 0xffffff });
+                object.traverse(function (child) {
+                    if (child instanceof THREE.Mesh) {
+                        child.material = material;
+                    }
+                });
+                that.dice = object
+                that.rolling = false
                 scene.add(object);
                 object.scale.set(2, 2, 2)
                 object.position.set(-300, 50, -300)
