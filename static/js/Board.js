@@ -35,7 +35,8 @@ class Board extends THREE.Object3D {
                 cube.position.x = i * 110
             }
             else if (i < 10) {
-                cube.position.z = (i - 7) * 110
+                if (i != 9)
+                    cube.position.z = (i - 7) * 110
                 cube.position.x = 770
             }
             else if (i < 18) {
@@ -43,16 +44,20 @@ class Board extends THREE.Object3D {
                 cube.position.x = (770 - (i - 10) * 110)
             }
             else if (i < 20) {
-                cube.position.z = (i - 17) * 110 + 220
-                cube.position.x = 0
+                if (i != 19) {
+                    cube.position.z = (i - 17) * 110 + 220
+                    cube.position.x = 0
+                }
             }
             else if (i < 28) {
                 cube.position.z = 440
                 cube.position.x = ((i - 20) * 110)
             }
             else if (i < 30) {
-                cube.position.z = (i - 28) * 110 + 550
-                cube.position.x = 770
+                if (i != 29) {
+                    cube.position.z = (i - 28) * 110 + 550
+                    cube.position.x = 770
+                }
             }
             else if (i < 38) {
                 cube.position.z = 660
