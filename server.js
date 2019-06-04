@@ -28,7 +28,7 @@ socketio.on('connection', function (client) {
         coll.insert({gracz:client.id,ruchy:0})
     }
 
-    socketio.emit("conn",{player:players.length})
+    socketio.to(client.id).emit("conn",{player:players.length})
 
     client.on("move", function (data) {
         client.broadcast.emit("move", data)
