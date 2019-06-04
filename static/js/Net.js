@@ -1,10 +1,7 @@
 class Net{
     constructor(){
         var socket
-        if(confirm("Czy chcesz rozpocząć gre?"))
-            socket = io()
-        else
-            return
+        socket = io()
         this.io=socket
         this.myMove=false
         socket.on("conn",function(data){
