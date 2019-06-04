@@ -37,7 +37,8 @@ class Game {
                 var directionVect = el.nextBlock.position.clone().sub(el.position).normalize()
                 if (el.position.clone().distanceTo(el.nextBlock.position) > 10) {
                     el.translateOnAxis(directionVect, 5)
-                } else {
+                }
+                else {
                     if (el.moves > 0) {
                         el.moves--
                         el.pos++
