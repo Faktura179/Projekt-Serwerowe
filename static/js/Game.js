@@ -63,44 +63,14 @@ class Game {
         });
 
 
-        var gltfloader = new THREE.GLTFLoader()
-        gltfloader.load("models/scene.gltf", (gltf)=>{
-            const root = gltf.scene
-            scene.add(root)
-            root.scale.set(5,5,5)
-            root.position.set(50,10,50)
-        })
 
 
-        var objectLoader = new THREE.ObjectLoader();
-        objectLoader.load("models/mars-rover-spirit-opportunitymtl.json", function (obj) {
-            scene.add(obj);
-            obj.scale.set(0.4,0.4,0.4)
-        });
-        // var loader = new THREE.OBJLoader();
-        // loader.load(
-        //     // resource URL
-        //     'models/robot-birdface-21.obj',
-        //     // called when resource is loaded
-        //     function (object) {
+        // var objectLoader = new THREE.ObjectLoader();
+        // objectLoader.load("models/mars-rover-spirit-opportunitymtl.json", function (obj) {
+        //     scene.add(obj);
+        //     obj.scale.set(0.4, 0.4, 0.4)
+        // });
 
-        //         scene.add(object);
-        //         object.scale.set(4,4,4)
-
-        //     },
-        //     // called when loading is in progresses
-        //     function (xhr) {
-
-        //         console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-
-        //     },
-        //     // called when loading has errors
-        //     function (error) {
-
-        //         console.log('An error happened');
-
-        //     }
-        // );
         var loader = new THREE.OBJLoader();
         loader.load(
             // resource URL
@@ -109,8 +79,70 @@ class Game {
             function (object) {
 
                 scene.add(object);
-                object.scale.set(2,2,2)
-                object.position.set(-300,50,-300)
+                object.scale.set(2, 2, 2)
+                object.position.set(-300, 50, -300)
+
+            },
+            // called when loading is in progresses
+            function (xhr) {
+
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+
+            },
+            // called when loading has errors
+            function (error) {
+
+                console.log('An error happened');
+
+            }
+        );
+        loader.load(
+            // resource URL
+            'models/mustang/1967-shelby-ford-mustang.obj',
+            // called when resource is loaded
+            function (object) {
+                var texture = new THREE.TextureLoader().load('models/mustang/bodybkgd.jpg');
+                var material = new THREE.MeshPhongMaterial({ map: texture });
+                object.traverse(function (child) {
+                    if (child instanceof THREE.Mesh) {
+                        child.material = material;
+                    }
+                });
+                object.scale.set(8, 8, 8)
+                object.position.set(0, 3, -25)
+                object.rotation.y += Math.PI * 3 / 2
+                scene.add(object);
+
+            },
+            // called when loading is in progresses
+            function (xhr) {
+
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+
+            },
+            // called when loading has errors
+            function (error) {
+
+                console.log('An error happened');
+
+            }
+        );
+        loader.load(
+            // resource URL
+            'models/porshe/Porsche_911_GT2.obj',
+            // called when resource is loaded
+            function (object) {
+                var texture = new THREE.TextureLoader().load('models/porshe/skinhp/0000.bmp');
+                var material = new THREE.MeshPhongMaterial({ map: texture });
+                object.traverse(function (child) {
+                    if (child instanceof THREE.Mesh) {
+                        child.material = material;
+                    }
+                });
+                object.scale.set(16, 16, 16)
+                object.position.set(0, 13, 25)
+                object.rotation.y += Math.PI * 3 / 2
+                scene.add(object);
 
             },
             // called when loading is in progresses
