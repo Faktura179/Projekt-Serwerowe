@@ -1,6 +1,7 @@
 class Board extends THREE.Object3D {
     constructor() {
         super()
+        this.pola=[]
         for (let i = 0; i < 38; i++) {
             var geometry = new THREE.BoxGeometry(100, 5, 100);
             var material = new THREE.MeshPhongMaterial({
@@ -60,6 +61,7 @@ class Board extends THREE.Object3D {
             }
             cube.number = i + 1
             this.add(cube)
+            this.pola.push(cube)
         }
         var geometry = new THREE.PlaneGeometry(960, 850, 100);
         var material = new THREE.MeshPhongMaterial({

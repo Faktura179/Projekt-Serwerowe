@@ -1,7 +1,5 @@
 class Game {
     constructor() {
-        this.a = 0
-        this.b = 0
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(
             45,    // kąt patrzenia kamery (FOV - field of view)
@@ -19,15 +17,31 @@ class Game {
         renderer.setClearColor(0xffffff);
         renderer.setSize(window.innerWidth, window.innerHeight);
         $("#root").append(renderer.domElement);
+
+        var players=[]
+        players.push(new Player())
+        players.push(new Player())
+
         function render() {
 
-
-            //w tym miejscu ustalamy wszelkie zmiany w projekcie (obrót, skalę, położenie obiektów)
-            //np zmieniająca się wartość rotacji obiektu
-
-            //mesh.rotation.y += 0.01;
-
-            //wykonywanie funkcji bez końca ok 60 fps jeśli pozwala na to wydajność maszyny
+            players.forEach(el=>{
+                var directionVect = el.nextBlock.position.clone().sub(el.position).normalize()
+                if(el.position.clone().distanceTo(el.nextBlock)>50){
+                    el.translateOnAxis(directionVect, 5)
+                }else{
+                    if(el.moves>0){
+                        el.moves--
+                        el.pos++
+                        el.nextBlock=game.board.pola[el.pos]
+                    }else{
+                        if(el.isMoving){
+                            el.stand()
+                            el.isMoving=false
+                        }
+                    }
+                }
+            })
+            
 
             requestAnimationFrame(render);
 
@@ -41,6 +55,7 @@ class Game {
         }
         render()
         var plansza = new Board()
+        this.borad = plansza
         scene.add(plansza)
         var orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
         orbitControl.addEventListener('change', function () {
