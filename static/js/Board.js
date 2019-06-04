@@ -20,6 +20,8 @@ class Board extends THREE.Object3D {
                     map: new THREE.TextureLoader().load("textures/win.jpg"),
                 })
             }
+            var cube = new THREE.Mesh(geometry, material);
+            cube.position.y = 0
             if (i == 4 || i == 8 || i == 13 || i == 16 || i == 21 || i == 28 || i == 31 || i == 35) {
                 var material = new THREE.MeshPhongMaterial({
                     //color: 0xff0000,
@@ -28,9 +30,36 @@ class Board extends THREE.Object3D {
                     side: THREE.DoubleSide,
                     map: new THREE.TextureLoader().load("textures/special.jpg"),
                 })
+                cube = new THREE.Mesh(geometry, material);
+                cube.specialAction = true
+                if (i == 4) {
+                    cube.specialActonDescription = "-3"
+                }
+                else if (i == 8) {
+                    cube.specialActonDescription = "-2"
+                }
+                else if (i == 13) {
+                    cube.specialActonDescription = "-2R"
+                }
+                else if (i == 16) {
+                    cube.specialActonDescription = "+1P"
+                }
+                else if (i == 21) {
+                    cube.specialActonDescription = "-1P"
+                }
+                else if (i == 28) {
+                    cube.specialActonDescription = "+1R"
+                }
+                else if (i == 31) {
+                    cube.specialActonDescription = "+1"
+                }
+                else if (i == 35) {
+                    cube.specialActonDescription = "-9"
+                }
             }
-            var cube = new THREE.Mesh(geometry, material);
-            cube.position.y = 0
+            else {
+                cube.specialAction = false
+            }
             if (i < 8) {
                 cube.position.z = 0
                 cube.position.x = i * 110
