@@ -46,18 +46,56 @@ class Game {
         orbitControl.addEventListener('change', function () {
             renderer.render(scene, camera)
         });
-        // var objectLoader = new THREE.ObjectLoader();
-        // objectLoader.load("models/mars-rover-spirit-opportunitymtl.json", function (obj) {
-        //     scene.add(obj);
-        // });
+
+
+        var gltfloader = new THREE.GLTFLoader()
+        gltfloader.load("models/scene.gltf", (gltf)=>{
+            const root = gltf.scene
+            scene.add(root)
+            root.scale.set(5,5,5)
+            root.position.set(50,10,50)
+        })
+
+
+        var objectLoader = new THREE.ObjectLoader();
+        objectLoader.load("models/mars-rover-spirit-opportunitymtl.json", function (obj) {
+            scene.add(obj);
+            obj.scale.set(0.4,0.4,0.4)
+        });
+        // var loader = new THREE.OBJLoader();
+        // loader.load(
+        //     // resource URL
+        //     'models/robot-birdface-21.obj',
+        //     // called when resource is loaded
+        //     function (object) {
+
+        //         scene.add(object);
+        //         object.scale.set(4,4,4)
+
+        //     },
+        //     // called when loading is in progresses
+        //     function (xhr) {
+
+        //         console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+
+        //     },
+        //     // called when loading has errors
+        //     function (error) {
+
+        //         console.log('An error happened');
+
+        //     }
+        // );
         var loader = new THREE.OBJLoader();
         loader.load(
             // resource URL
-            'models/robot-birdface-21.obj',
+            'models/white-dice.obj',
             // called when resource is loaded
             function (object) {
 
                 scene.add(object);
+                object.scale.set(2,2,2)
+                object.position.set(-300,50,-300)
 
             },
             // called when loading is in progresses
