@@ -22,38 +22,48 @@ mongoClient.connect("mongodb://localhost/planszowka", function (err, db) {
 socketio.on('connection', function (client) {
     console.log("klient się podłączył " + client.id)
     // client.id - unikalna nazwa klienta generowana przez socket.io
-    if(players.length<2){
+    if (players.length < 2) {
         players.push(client.id)
         var coll = _db.collection("gracze")
-        coll.insert({gracz:client.id,ruchy:0})
+        coll.insert({ gracz: client.id, ruchy: 0 })
     }
 
-    socketio.to(client.id).emit("conn",{player:players.length})
+    socketio.to(client.id).emit("conn", { player: players.length })
 
     client.on("move", function (data) {
         client.broadcast.emit("move", data)
         var coll = _db.collection("gracze")
         coll.updateOne(
-            { gracz:client.id },
-            { $inc: { ruchy:1 } },
+            { gracz: client.id },
+            { $inc: { ruchy: 1 } },
             function (err, data) {
-                console.log("update: "+data)                  
+                console.log("update: " + data)
             })
     })
-    client.on("win",function(data){
-        if(players.indexOf(client.id)!==-1){
+    client.on("moveBonus", function (data) {
+        client.broadcast.emit("moveBonus", data)
+        // var coll = _db.collection("gracze")
+        // coll.updateOne(
+        //     { gracz: client.id },
+        //     { $inc: { ruchy: 1 } },
+        //     function (err, data) {
+        //         console.log("update: " + data)
+        //     })
+    })
+    client.on("win", function (data) {
+        if (players.indexOf(client.id) !== -1) {
             coll.updateOne(
-                { gracz:client.id },
-                { $set: { wygral:true } },
+                { gracz: client.id },
+                { $set: { wygral: true } },
                 function (err, data) {
-                    console.log("update: "+data)                  
+                    console.log("update: " + data)
                 })
         }
     })
     client.on("disconnect", function () {
-        if(players.indexOf(client.id)!==-1){
-            players=players.filter(el=>el!=client.id)
-            socketio.to(players[0]).emit("win",{})
+        if (players.indexOf(client.id) !== -1) {
+            players = players.filter(el => el != client.id)
+            socketio.to(players[0]).emit("win", {})
         }
         console.log("Client sie rozałączył")
     })

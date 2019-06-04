@@ -20,6 +20,16 @@ class Net {
         })
         socket.on("move", function (data) {
             this.myMove = true
+            console.log(data)
+            if (this.player == 0) {
+                game.players[1].move(data.ilePol)
+            } else {
+                game.players[0].move(data.ilePol)
+            }
+        }.bind(this))
+        socket.on("moveBonus", function (data) {
+            //this.myMove = true
+            //console.log(data)
             if (this.player == 0) {
                 game.players[1].move(data.ilePol)
             } else {
@@ -30,5 +40,8 @@ class Net {
 
     move(argumenty) {
         this.io.emit("move", argumenty)
+    }
+    moveBonus(argumenty) {
+        this.io.emit("moveBonus", argumenty)
     }
 }

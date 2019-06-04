@@ -22,6 +22,7 @@ class Board extends THREE.Object3D {
             }
             var cube = new THREE.Mesh(geometry, material);
             cube.position.y = 0
+            cube.specialAction = false
             if (i == 4 || i == 8 || i == 13 || i == 16 || i == 21 || i == 28 || i == 31 || i == 35) {
                 var material = new THREE.MeshPhongMaterial({
                     //color: 0xff0000,
@@ -33,28 +34,28 @@ class Board extends THREE.Object3D {
                 cube = new THREE.Mesh(geometry, material);
                 cube.specialAction = true
                 if (i == 4) {
-                    cube.specialActonDescription = "-3"
+                    cube.specialActionDescription = "-1"
                 }
                 else if (i == 8) {
-                    cube.specialActonDescription = "-2"
+                    cube.specialActionDescription = "-1"
                 }
                 else if (i == 13) {
-                    cube.specialActonDescription = "-2R"
+                    cube.specialActionDescription = "-2RR"
                 }
                 else if (i == 16) {
-                    cube.specialActonDescription = "+1P"
+                    cube.specialActionDescription = "+1PPP"
                 }
                 else if (i == 21) {
-                    cube.specialActonDescription = "-1P"
+                    cube.specialActionDescription = "-1PPP"
                 }
                 else if (i == 28) {
-                    cube.specialActonDescription = "+1R"
+                    cube.specialActionDescription = "+1RR"
                 }
                 else if (i == 31) {
-                    cube.specialActonDescription = "+1"
+                    cube.specialActionDescription = "+1"
                 }
                 else if (i == 35) {
-                    cube.specialActonDescription = "-9"
+                    cube.specialActionDescription = "-9"
                 }
             }
             else {

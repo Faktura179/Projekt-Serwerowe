@@ -49,11 +49,25 @@ class Player extends THREE.Object3D {
         this.isMoving = true
     }
     stand() {
-        console.log("Stop")
-        console.log(this.nextBlock)
+        console.log("stop")
         if (this.nextBlock.specialAction == true) {
-            console.log("akcja specjalna")
-
+            if (parseInt(this.nextBlock.specialActionDescription) > 0) {
+                var howMuch = parseInt(this.nextBlock.specialActionDescription)
+                this.move(howMuch)
+                console.log("_______")
+                console.log(this)
+                net.moveBonus({ ilePol: howMuch })
+            }
+            else {
+                var howMuch = parseInt(this.nextBlock.specialActionDescription)
+                this.position.x = game.board.pola[this.pos - 1].position.x
+                this.position.y = game.board.pola[this.pos - 1].position.y
+                this.position.z = game.board.pola[this.pos - 1].position.z
+                this.pos = this.pos - 1
+                this.isMoving = false
+                this.moves = 0
+                this.nextBlock = game.board.pola[this.pos]
+            }
         }
     }
 

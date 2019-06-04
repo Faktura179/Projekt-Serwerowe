@@ -22,41 +22,41 @@ class Game {
 
         var plansza = new Board()
         this.board = plansza
-        var players=[]
-        this.players=players
-        players.push(new Player('models/mustang/1967-shelby-ford-mustang.obj','models/mustang/bodybkgd.jpg',8,new THREE.Vector3(0, 3, -25),Math.PI * 3 / 2))
-        players.push(new Player('models/porshe/Porsche_911_GT2.obj','models/porshe/skinhp/0000.bmp',16,new THREE.Vector3(0, 13, 25),Math.PI * 3 / 2))
-        players.forEach(el=>{
-            el.nextBlock=this.board.pola[0]
+        var players = []
+        this.players = players
+        players.push(new Player('models/mustang/1967-shelby-ford-mustang.obj', 'models/mustang/bodybkgd.jpg', 8, new THREE.Vector3(0, 3, -25), Math.PI * 3 / 2))
+        players.push(new Player('models/porshe/Porsche_911_GT2.obj', 'models/porshe/skinhp/0000.bmp', 16, new THREE.Vector3(0, 13, 25), Math.PI * 3 / 2))
+        players.forEach(el => {
+            el.nextBlock = this.board.pola[0]
             scene.add(el)
         })
 
         function render() {
 
-            players.forEach(el=>{
+            players.forEach(el => {
                 var directionVect = el.nextBlock.position.clone().sub(el.position).normalize()
-                if(el.position.clone().distanceTo(el.nextBlock.position)>10){
+                if (el.position.clone().distanceTo(el.nextBlock.position) > 10) {
                     el.translateOnAxis(directionVect, 5)
-                }else{
-                    if(el.moves>0){
+                } else {
+                    if (el.moves > 0) {
                         el.moves--
                         el.pos++
-                        el.nextBlock=game.board.pola[el.pos]
-                        if(el.pos%9==8 || (el.pos%9==1 && el.pos>1)){
-                            el.obj.rotation.y+=Math.PI/2
+                        el.nextBlock = game.board.pola[el.pos]
+                        if (el.pos % 9 == 8 || (el.pos % 9 == 1 && el.pos > 1)) {
+                            el.obj.rotation.y += Math.PI / 2
                         }
-                    }else{
-                        if(el.isMoving){
-                            if(el.pos%9==7 || (el.pos%9==0 && el.pos>0)){
-                                el.obj.rotation.y+=Math.PI/2
+                    } else {
+                        if (el.isMoving) {
+                            if (el.pos % 9 == 7 || (el.pos % 9 == 0 && el.pos > 0)) {
+                                el.obj.rotation.y += Math.PI / 2
                             }
                             el.stand()
-                            el.isMoving=false
+                            el.isMoving = false
                         }
                     }
                 }
             })
-            
+
 
             requestAnimationFrame(render);
 
@@ -95,7 +95,7 @@ class Game {
             renderer.render(scene, camera);
         }
         render()
-        
+
         scene.add(plansza)
         var orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
         orbitControl.addEventListener('change', function () {
