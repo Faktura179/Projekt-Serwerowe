@@ -14,9 +14,10 @@ class Ui {
                     }
                     break;
                 case "h":
-                    console.log("pomoc")
-                    var info = $("<DIV>")
-                    info.text("WITAJ W GRZE WYPRODUKOWANEJ PRZEZ FATUŁA&STRYCZEK \n Aby wykonac ruch, w czasie swojejego ruchu kliknij enter lub ")
+                    var info = document.createElement("div")
+                    info.innerText = "WITAJ W GRZE WYPRODUKOWANEJ PRZEZ FATUŁA&STRYCZEK \n Aby wykonac ruch, w czasie swojejego ruchu kliknij enter lub kliknij przycisk 'RUCH'.\n Celem gdy jest dotarcie do mety, niektore pola mogą ci to ułatwić bądź utrunić"
+                    info.id = "help"
+                    document.body.appendChild(info)
                     break
                 default:
                     console.log(e.key)

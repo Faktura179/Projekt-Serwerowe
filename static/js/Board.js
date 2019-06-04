@@ -35,9 +35,11 @@ class Board extends THREE.Object3D {
                 cube.position.x = i * 110
             }
             else if (i < 10) {
-                if (i != 9)
+                if (i != 9) {
                     cube.position.z = (i - 7) * 110
-                cube.position.x = 770
+                    cube.position.x = 770
+                }
+
             }
             else if (i < 18) {
                 cube.position.z = 220
@@ -64,7 +66,9 @@ class Board extends THREE.Object3D {
                 cube.position.x = (770 - (i - 30) * 110)
             }
             cube.number = i + 1
-            this.add(cube)
+            if (i != 9 && i != 19 && i != 29) {
+                this.add(cube)
+            }
         }
         var geometry = new THREE.PlaneGeometry(960, 850, 100);
         var material = new THREE.MeshPhongMaterial({

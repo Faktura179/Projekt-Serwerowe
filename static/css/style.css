@@ -3,3 +3,13 @@
     padding:0;
     overflow: hidden;
 }
+#help{
+    position: absolute;
+    width: 400px;
+    height: 130px;
+    top: 100%;
+    left: 100%;
+    margin: 0px auto;
+    background-color: red;
+    opacity: 0.5;
+}
