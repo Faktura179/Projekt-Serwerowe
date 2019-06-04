@@ -19,15 +19,41 @@ class Game {
         renderer.setClearColor(0xffffff);
         renderer.setSize(window.innerWidth, window.innerHeight);
         $("#root").append(renderer.domElement);
+
+        var plansza = new Board()
+        this.board = plansza
+        var players=[]
+        this.players=players
+        players.push(new Player('models/mustang/1967-shelby-ford-mustang.obj','models/mustang/bodybkgd.jpg',8,new THREE.Vector3(0, 3, -25),Math.PI * 3 / 2))
+        players.push(new Player('models/porshe/Porsche_911_GT2.obj','models/porshe/skinhp/0000.bmp',16,new THREE.Vector3(0, 13, 25),Math.PI * 3 / 2))
+        players.forEach(el=>{
+            el.nextBlock=this.board.pola[0]
+            scene.add(el)
+        })
+
         function render() {
 
-
-            //w tym miejscu ustalamy wszelkie zmiany w projekcie (obrót, skalę, położenie obiektów)
-            //np zmieniająca się wartość rotacji obiektu
-
-            //mesh.rotation.y += 0.01;
-
-            //wykonywanie funkcji bez końca ok 60 fps jeśli pozwala na to wydajność maszyny
+            players.forEach(el=>{
+                var directionVect = el.nextBlock.position.clone().sub(el.position).normalize()
+                if(el.position.clone().distanceTo(el.nextBlock.position)>10){
+                    el.translateOnAxis(directionVect, 5)
+                }else{
+                    if(el.moves>0){
+                        el.moves--
+                        el.pos++
+                        el.nextBlock=game.board.pola[el.pos]
+                        if(el.pos%9==8 || (el.pos%9==1 && el.pos>1)){
+                            el.obj.rotation.y+=Math.PI/2
+                        }
+                    }else{
+                        if(el.isMoving){
+                            el.stand()
+                            el.isMoving=false
+                        }
+                    }
+                }
+            })
+            
 
             requestAnimationFrame(render);
 
@@ -66,7 +92,7 @@ class Game {
             renderer.render(scene, camera);
         }
         render()
-        var plansza = new Board()
+        
         scene.add(plansza)
         var orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
         orbitControl.addEventListener('change', function () {
@@ -76,11 +102,6 @@ class Game {
 
 
 
-        // var objectLoader = new THREE.ObjectLoader();
-        // objectLoader.load("models/mars-rover-spirit-opportunitymtl.json", function (obj) {
-        //     scene.add(obj);
-        //     obj.scale.set(0.4, 0.4, 0.4)
-        // });
         var loader = new THREE.OBJLoader();
         loader.load(
             // resource URL
@@ -113,67 +134,68 @@ class Game {
 
             }
         );
-        loader.load(
-            // resource URL
-            'models/mustang/1967-shelby-ford-mustang.obj',
-            // called when resource is loaded
-            function (object) {
-                var texture = new THREE.TextureLoader().load('models/mustang/bodybkgd.jpg');
-                var material = new THREE.MeshPhongMaterial({ map: texture });
-                object.traverse(function (child) {
-                    if (child instanceof THREE.Mesh) {
-                        child.material = material;
-                    }
-                });
-                object.scale.set(8, 8, 8)
-                object.position.set(0, 3, -25)
-                object.rotation.y += Math.PI * 3 / 2
-                scene.add(object);
 
-            },
-            // called when loading is in progresses
-            function (xhr) {
+        // loader.load(
+        //     // resource URL
+        //     'models/mustang/1967-shelby-ford-mustang.obj',
+        //     // called when resource is loaded
+        //     function (object) {
+        //         var texture = new THREE.TextureLoader().load('models/mustang/bodybkgd.jpg');
+        //         var material = new THREE.MeshPhongMaterial({ map: texture });
+        //         object.traverse(function (child) {
+        //             if (child instanceof THREE.Mesh) {
+        //                 child.material = material;
+        //             }
+        //         });
+        //         object.scale.set(8, 8, 8)
+        //         object.position.set(0, 3, -25)
+        //         object.rotation.y += Math.PI * 3 / 2
+        //         scene.add(object);
 
-                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+        //     },
+        //     // called when loading is in progresses
+        //     function (xhr) {
 
-            },
-            // called when loading has errors
-            function (error) {
+        //         console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 
-                console.log('An error happened');
+        //     },
+        //     // called when loading has errors
+        //     function (error) {
 
-            }
-        );
-        loader.load(
-            // resource URL
-            'models/porshe/Porsche_911_GT2.obj',
-            // called when resource is loaded
-            function (object) {
-                var texture = new THREE.TextureLoader().load('models/porshe/skinhp/0000.bmp');
-                var material = new THREE.MeshPhongMaterial({ map: texture });
-                object.traverse(function (child) {
-                    if (child instanceof THREE.Mesh) {
-                        child.material = material;
-                    }
-                });
-                object.scale.set(16, 16, 16)
-                object.position.set(0, 13, 25)
-                object.rotation.y += Math.PI * 3 / 2
-                scene.add(object);
+        //         console.log('An error happened');
 
-            },
-            // called when loading is in progresses
-            function (xhr) {
+        //     }
+        // );
+        // loader.load(
+        //     // resource URL
+        //     'models/porshe/Porsche_911_GT2.obj',
+        //     // called when resource is loaded
+        //     function (object) {
+        //         var texture = new THREE.TextureLoader().load('models/porshe/skinhp/0000.bmp');
+        //         var material = new THREE.MeshPhongMaterial({ map: texture });
+        //         object.traverse(function (child) {
+        //             if (child instanceof THREE.Mesh) {
+        //                 child.material = material;
+        //             }
+        //         });
+        //         object.scale.set(16, 16, 16)
+        //         object.position.set(0, 13, 25)
+        //         object.rotation.y += Math.PI * 3 / 2
+        //         scene.add(object);
 
-                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+        //     },
+        //     // called when loading is in progresses
+        //     function (xhr) {
 
-            },
-            // called when loading has errors
-            function (error) {
+        //         console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 
-                console.log('An error happened');
+        //     },
+        //     // called when loading has errors
+        //     function (error) {
 
-            }
-        );
+        //         console.log('An error happened');
+
+        //     }
+        // );
     }
 }
