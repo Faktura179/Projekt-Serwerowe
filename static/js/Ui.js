@@ -18,7 +18,7 @@ class Ui {
                         if (game.openHelp == false) {
                             var info = document.createElement("div")
                             game.openHelp = true
-                            info.innerText = "WITAJ W GRZE WYPRODUKOWANEJ PRZEZ FATUŁA&STRYCZEK. \n Aby wykonac ruch, w czasie swojego ruchu kliknij Enter lub kliknij przycisk 'RUCH'.\n Celem gdy jest dotarcie do mety, niektore pola mogą ci to ułatwić bądź utrudnić."
+                            info.innerText = "WITAJ W GRZE WYPRODUKOWANEJ PRZEZ FATUŁA&STRYCZEK. \n Aby wykonac ruch, w czasie swojego ruchu wciśnij Enter/Spację lub kliknij przycisk 'RUCH'.\n Celem gdy jest dotarcie do mety, niektore pola mogą ci to ułatwić bądź utrudnić."
                             info.id = "help"
                             var left = window.innerWidth
                             left = left / 2
