@@ -5,11 +5,18 @@
 }
 #help{
     position: absolute;
-    width: 400px;
-    height: 130px;
-    top: 100%;
-    left: 100%;
+    width: 650px;
+    height: 90px;
+    top: 0px;
     margin: 0px auto;
-    background-color: red;
-    opacity: 0.5;
+    background-color: #96858F;
+    border: 10px #6D7993 double;
+    opacity: 0.8;
+    font-family: Book Antiqua;
+}
+
+#move{
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
