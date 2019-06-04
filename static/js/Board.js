@@ -69,6 +69,7 @@ class Board extends THREE.Object3D {
             cube.number = i + 1
             if (i != 9 && i != 19 && i != 29) {
                 this.add(cube)
+                this.pola.push(cube)
             }
         }
         var geometry = new THREE.PlaneGeometry(960, 850, 100);
