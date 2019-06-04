@@ -52,13 +52,16 @@ class Ui {
             }
         }
         $("#move").on("click", function () {
-            if (game.rolling == false) {
+            if (game.rolling == false && net.myMove) {
+                net.myMove=false
                 var currentNumber = Math.floor(Math.random() * 6) + 1
                 game.currentNumber = currentNumber
                 console.log(currentNumber)
                 game.rolling = true
                 setTimeout(function () {
                     game.rolling = false
+                    game.players[net.player].move(currentNumber)
+                    net.move({ilePol:currentNumber})
                 }, 2000)
             }
         })
