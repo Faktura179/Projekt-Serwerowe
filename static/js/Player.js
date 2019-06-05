@@ -6,6 +6,7 @@ class Player extends THREE.Object3D {
         this.moves = 0
         this.isMoving = false
         this.extraValue = 0
+        this.extraRolls = 0
         var that = this
         var loader = new THREE.OBJLoader();
         loader.load(
@@ -48,6 +49,12 @@ class Player extends THREE.Object3D {
         this.nextBlock = game.board.pola[this.pos]
         this.isMoving = true
     }
+    noMove() {
+        this.moves = 0
+        //this.pos++
+        this.nextBlock = game.board.pola[this.pos]
+        this.isMoving = true
+    }
     stand() {
         console.log("stop")
         if (this.nextBlock.specialAction == true) {
@@ -68,6 +75,23 @@ class Player extends THREE.Object3D {
                     this.isMoving = false
                     this.moves = 0
                     this.nextBlock = game.board.pola[this.pos]
+                }
+            }
+            else if (this.nextBlock.specialActionDescription.length == 4) {
+                if (this.nextBlock.specialActionDescription[0] == "+") {
+                    var amount = parseInt(this.nextBlock.specialActionDescription[1])
+                    this.extraRolls += amount
+                    net.changeExtraRolls({ extra: amount })
+                }
+                else {
+                    var amount = parseInt(this.nextBlock.specialActionDescription[1])
+                    amount = amount * -1
+                    if (this.extraRolls >= 0) {
+                        console.log("HALO")
+                        console.log(this.extraRolls)
+                        this.extraRolls += amount
+                        net.changeExtraRolls({ extra: amount })
+                    }
                 }
             }
             else if (this.nextBlock.specialActionDescription.length == 5) {

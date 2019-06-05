@@ -20,11 +20,19 @@ class Net {
         })
         socket.on("move", function (data) {
             this.myMove = true
-            console.log(data)
-            if (this.player == 0) {
-                game.players[1].move(data.ilePol)
-            } else {
-                game.players[0].move(data.ilePol)
+            if (data.ilePol != 0) {
+                if (this.player == 0) {
+                    game.players[1].move(data.ilePol)
+                } else {
+                    game.players[0].move(data.ilePol)
+                }
+            }
+            else {
+                if (this.player == 0) {
+                    game.players[1].noMove()
+                } else {
+                    game.players[0].noMove()
+                }
             }
         }.bind(this))
         // socket.on("moveBonus", function (data) {
@@ -43,6 +51,15 @@ class Net {
                 game.players[0].extraValue += data.extra
             }
         }.bind(this))
+        socket.on("changingRolls2", function (data) {
+            if (this.player == 0) {
+                console.log("ZEEEEEEEEEEEEEEEERO")
+                game.players[1].extraRolls += data.extra
+            } else {
+                console.log("JEEEEEEEEEDEEEEEEEEEEEN")
+                game.players[0].extraRolls += data.extra
+            }
+        }.bind(this))
     }
 
     move(argumenty) {
@@ -53,5 +70,9 @@ class Net {
     }
     changeExtraValue(change) {
         this.io.emit("changing", change)
+    }
+    changeExtraRolls(change) {
+        this.io.emit("changingRolls", change)
+
     }
 }

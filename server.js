@@ -63,6 +63,9 @@ socketio.on('connection', function (client) {
     client.on("changing", function (data) {
         client.broadcast.emit("changing2", data)
     })
+    client.on("changingRolls", function (data) {
+        client.broadcast.emit("changingRolls2", data)
+    })
     client.on("disconnect", function () {
         if (players.indexOf(client.id) !== -1) {
             players = players.filter(el => el != client.id)

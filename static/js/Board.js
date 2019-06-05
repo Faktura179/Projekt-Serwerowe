@@ -34,13 +34,13 @@ class Board extends THREE.Object3D {
                 cube = new THREE.Mesh(geometry, material);
                 cube.specialAction = true
                 if (i == 4) {
-                    cube.specialActionDescription = "+2"
+                    cube.specialActionDescription = "-2RR"
                 }
                 else if (i == 8) {
                     cube.specialActionDescription = "-1"
                 }
                 else if (i == 13) {
-                    cube.specialActionDescription = "-2RR"
+                    cube.specialActionDescription = "-2"
                 }
                 else if (i == 16) {
                     cube.specialActionDescription = "+1PPP"

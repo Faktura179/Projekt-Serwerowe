@@ -52,19 +52,33 @@ class Ui {
             }
         }
         $("#move").on("click", function () {
-            if (game.rolling == false && net.myMove) {
+            console.log("--------")
+            console.log(game.players[net.player].extraRolls)
+            console.log("---------")
+            if (game.rolling == false && net.myMove && game.players[net.player].extraRolls == 0) {
                 net.myMove = false
                 //var currentNumber = Math.floor(Math.random() * 6) + 1
-                var currentNumber = 2
+                var currentNumber = 4
                 game.currentNumber = currentNumber
                 currentNumber += game.players[net.player].extraValue
-                console.log(currentNumber)
                 game.rolling = true
                 setTimeout(function () {
                     game.rolling = false
-                    game.players[net.player].move(currentNumber)
-                    net.move({ ilePol: currentNumber })
+                    if (game.players[net.player].extraRolls == 0) {
+                        console.log("BEZ OPOZNIENIA")
+                        game.players[net.player].move(currentNumber)
+                        net.move({ ilePol: currentNumber })
+                    }
                 }, 2000)
+            }
+            else {
+                if (game.players[net.player].extraRolls < 0) {
+                    console.log("OPÓŹNIENIE")
+                    net.myMove = false
+                    game.players[net.player].extraRolls += 1
+                    game.players[net.player].noMove()
+                    net.move({ ilePol: 0 })
+                }
             }
         })
     }
