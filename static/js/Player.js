@@ -57,7 +57,7 @@ class Player extends THREE.Object3D {
                     this.move(howMuch)
                     console.log("_______")
                     console.log(this)
-                    net.moveBonus({ ilePol: howMuch })
+                    //net.moveBonus({ ilePol: howMuch })
                 }
                 else {
                     var howMuch = parseInt(this.nextBlock.specialActionDescription)
