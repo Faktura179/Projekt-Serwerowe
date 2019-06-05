@@ -5,7 +5,7 @@ class Player extends THREE.Object3D {
         this.nextBlock
         this.moves = 0
         this.isMoving = false
-
+        this.extraValue = 0
         var that = this
         var loader = new THREE.OBJLoader();
         loader.load(
@@ -51,22 +51,34 @@ class Player extends THREE.Object3D {
     stand() {
         console.log("stop")
         if (this.nextBlock.specialAction == true) {
-            if (parseInt(this.nextBlock.specialActionDescription) > 0) {
-                var howMuch = parseInt(this.nextBlock.specialActionDescription)
-                this.move(howMuch)
-                console.log("_______")
-                console.log(this)
-                net.moveBonus({ ilePol: howMuch })
+            if (this.nextBlock.specialActionDescription.length == 2) {
+                if (parseInt(this.nextBlock.specialActionDescription) > 0) {
+                    var howMuch = parseInt(this.nextBlock.specialActionDescription)
+                    this.move(howMuch)
+                    console.log("_______")
+                    console.log(this)
+                    net.moveBonus({ ilePol: howMuch })
+                }
+                else {
+                    var howMuch = parseInt(this.nextBlock.specialActionDescription)
+                    this.position.x = game.board.pola[this.pos - 1].position.x
+                    this.position.y = game.board.pola[this.pos - 1].position.y
+                    this.position.z = game.board.pola[this.pos - 1].position.z
+                    this.pos = this.pos - 1
+                    this.isMoving = false
+                    this.moves = 0
+                    this.nextBlock = game.board.pola[this.pos]
+                }
             }
-            else {
-                var howMuch = parseInt(this.nextBlock.specialActionDescription)
-                this.position.x = game.board.pola[this.pos - 1].position.x
-                this.position.y = game.board.pola[this.pos - 1].position.y
-                this.position.z = game.board.pola[this.pos - 1].position.z
-                this.pos = this.pos - 1
-                this.isMoving = false
-                this.moves = 0
-                this.nextBlock = game.board.pola[this.pos]
+            else if (this.nextBlock.specialActionDescription.length == 5) {
+                if (this.nextBlock.specialActionDescription[0] == "+") {
+                    this.extraValue += 1
+                    net.changeExtraValue({ extra: 1 })
+                }
+                else {
+                    this.extraValue -= 1
+                    net.changeExtraValue({ extra: -1 })
+                }
             }
         }
     }

@@ -4,7 +4,7 @@ class Ui {
             switch (e.key) {
                 case "Enter":
                     if (game.rolling == false && net.myMove) {
-                        net.myMove=false
+                        net.myMove = false
                         var currentNumber = Math.floor(Math.random() * 6) + 1
                         game.currentNumber = currentNumber
                         console.log(currentNumber)
@@ -12,7 +12,7 @@ class Ui {
                         setTimeout(function () {
                             game.rolling = false
                             game.players[net.player].move(currentNumber)
-                            net.move({ilePol:currentNumber})
+                            net.move({ ilePol: currentNumber })
                         }, 2000)
                     }
                     break;
@@ -53,15 +53,17 @@ class Ui {
         }
         $("#move").on("click", function () {
             if (game.rolling == false && net.myMove) {
-                net.myMove=false
-                var currentNumber = Math.floor(Math.random() * 6) + 1
+                net.myMove = false
+                //var currentNumber = Math.floor(Math.random() * 6) + 1
+                var currentNumber = 2
                 game.currentNumber = currentNumber
+                currentNumber += game.players[net.player].extraValue
                 console.log(currentNumber)
                 game.rolling = true
                 setTimeout(function () {
                     game.rolling = false
                     game.players[net.player].move(currentNumber)
-                    net.move({ilePol:currentNumber})
+                    net.move({ ilePol: currentNumber })
                 }, 2000)
             }
         })

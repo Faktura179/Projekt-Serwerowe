@@ -36,6 +36,13 @@ class Net {
                 game.players[0].move(data.ilePol)
             }
         }.bind(this))
+        socket.on("changing2", function (data) {
+            if (this.player == 0) {
+                game.players[1].extraValue += data.extra
+            } else {
+                game.players[0].extraValue += data.extra
+            }
+        }.bind(this))
     }
 
     move(argumenty) {
@@ -43,5 +50,8 @@ class Net {
     }
     moveBonus(argumenty) {
         this.io.emit("moveBonus", argumenty)
+    }
+    changeExtraValue(change) {
+        this.io.emit("changing", change)
     }
 }
