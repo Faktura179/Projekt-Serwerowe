@@ -70,6 +70,7 @@ class Player extends THREE.Object3D {
         if (this.pos == 34 && game.winner == false) {
             window.alert("Zwycięzcą jest " + this.name)
             game.winner = true
+
         }
         if (game.winner == false) {
             if (this.nextBlock.specialAction == true) {

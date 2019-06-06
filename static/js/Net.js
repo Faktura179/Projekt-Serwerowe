@@ -15,8 +15,7 @@ class Net {
             console.log(this.myMove)
         }.bind(this))
         socket.on("win", function (data) {
-            socket.emit("win", {})
-            alert("Wygrałeś!")
+            alert("Wygrałeś! Twój przeciwnik wyszedł z gry")
         })
         socket.on("move", function (data) {
             this.myMove = true
@@ -51,6 +50,16 @@ class Net {
                 game.players[0].extraValue += data.extra
             }
         }.bind(this))
+        socket.on("highscores", function (data) {
+            console.log(data)
+            var wyniki = ""
+            for (var i = 0; i < data.length; i++) {
+                if (i >= 10) break;
+                wyniki += i + ": " + data[i].ruchy + " moves\n"
+            }
+            console.log(wyniki)
+            alert("Highscores:\n" + wyniki)
+        })
     }
 
     move(argumenty) {
@@ -61,5 +70,9 @@ class Net {
     }
     changeExtraValue(change) {
         this.io.emit("changing", change)
+    }
+    win() {
+        this.io.emit("win", {})
+        this.io.emit("highscores", {})
     }
 }
