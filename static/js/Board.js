@@ -37,7 +37,7 @@ class Board extends THREE.Object3D {
                     cube.specialActionDescription = "+2"
                 }
                 else if (i == 8) {
-                    cube.specialActionDescription = "-1RR"
+                    cube.specialActionDescription = "+1RR"
                 }
                 else if (i == 13) {
                     cube.specialActionDescription = "-2"
