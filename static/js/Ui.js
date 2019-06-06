@@ -3,18 +3,19 @@ class Ui {
         window.onkeydown = function (e) {
             switch (e.key) {
                 case "Enter":
-                    if (game.rolling == false && net.myMove) {
-                        net.myMove = false
-                        var currentNumber = Math.floor(Math.random() * 6) + 1
-                        game.currentNumber = currentNumber
-                        console.log(currentNumber)
-                        game.rolling = true
-                        setTimeout(function () {
-                            game.rolling = false
-                            game.players[net.player].move(currentNumber)
-                            net.move({ ilePol: currentNumber })
-                        }, 2000)
-                    }
+                    // if (game.rolling == false && net.myMove && game.winner==false) {
+                    //     net.myMove = false
+                    //     var currentNumber = Math.floor(Math.random() * 6) + 1
+                    //     game.currentNumber = currentNumber
+                    //     console.log(currentNumber)
+                    //     game.rolling = true
+                    //     setTimeout(function () {
+                    //         game.rolling = false
+                    //         game.players[net.player].move(currentNumber)
+                    //         net.move({ ilePol: currentNumber })
+                    //     }, 2000)
+                    // }
+                    $("#move").trigger("click");
                     break;
                 case "h":
                     if (game.openHelp != undefined) {
@@ -134,8 +135,8 @@ class Ui {
             if (game.winner == false) {
                 if (game.rolling == false && net.myMove && game.players[net.player].extraRolls == 0) {
                     net.myMove = false
-                    //var currentNumber = Math.floor(Math.random() * 6) + 1
-                    var currentNumber = 6
+                    var currentNumber = Math.floor(Math.random() * 6) + 1
+                    //var currentNumber = 6
                     game.currentNumber = currentNumber
                     currentNumber += game.players[net.player].extraValue
                     game.rolling = true
