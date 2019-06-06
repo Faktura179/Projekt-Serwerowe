@@ -44,6 +44,7 @@ class Player extends THREE.Object3D {
     }
 
     move(ilePol) {
+        console.log(net.player,this.num)
         this.moves = ilePol - 1
         this.pos++
         this.nextBlock = game.board.pola[this.pos]
@@ -85,6 +86,25 @@ class Player extends THREE.Object3D {
                 else {
                     this.extraValue -= 1
                     net.changeExtraValue({ extra: -1 })
+                }
+            }
+            else if (this.nextBlock.specialActionDescription.length == 4) {
+                if(this.nextBlock.specialActionDescription[0]=="+"){
+                    if(this.num==net.player){
+                    var currentNumber = Math.floor(Math.random() * 6) + 1
+                    game.currentNumber = currentNumber
+                    currentNumber += game.players[net.player].extraValue
+                    game.rolling = true
+                    setTimeout(function () {
+                        game.rolling = false
+                        if (game.players[net.player].extraRolls == 0) {
+                            console.log("+roll")
+                            this.move(currentNumber)
+                            net.move({ ilePol: currentNumber })
+                        }
+                    }.bind(this), 2000)}
+                }else{
+                    
                 }
             }
         }

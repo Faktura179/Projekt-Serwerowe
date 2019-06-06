@@ -26,7 +26,8 @@ class Game {
         this.players = players
         players.push(new Player('models/mustang/1967-shelby-ford-mustang.obj', 'models/mustang/bodybkgd.jpg', 8, new THREE.Vector3(0, 3, -25), Math.PI * 3 / 2))
         players.push(new Player('models/porshe/Porsche_911_GT2.obj', 'models/porshe/skinhp/0000.bmp', 16, new THREE.Vector3(0, 13, 25), Math.PI * 3 / 2))
-        players.forEach(el => {
+        players.forEach((el,i) => {
+            el.num=i
             el.nextBlock = this.board.pola[0]
             scene.add(el)
         })
