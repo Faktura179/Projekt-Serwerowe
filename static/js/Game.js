@@ -18,14 +18,14 @@ class Game {
         var renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setClearColor(0xffffff);
         renderer.setSize(window.innerWidth, window.innerHeight);
+        this.winner = false
         $("#root").append(renderer.domElement);
-
         var plansza = new Board()
         this.board = plansza
         var players = []
         this.players = players
-        players.push(new Player('models/mustang/1967-shelby-ford-mustang.obj', 'models/mustang/bodybkgd.jpg', 8, new THREE.Vector3(0, 3, -25), Math.PI * 3 / 2))
-        players.push(new Player('models/porshe/Porsche_911_GT2.obj', 'models/porshe/skinhp/0000.bmp', 16, new THREE.Vector3(0, 13, 25), Math.PI * 3 / 2))
+        players.push(new Player("mustang", 'models/mustang/1967-shelby-ford-mustang.obj', 'models/mustang/bodybkgd.jpg', 8, new THREE.Vector3(0, 3, -25), Math.PI * 3 / 2))
+        players.push(new Player("porsche", 'models/porshe/Porsche_911_GT2.obj', 'models/porshe/skinhp/0000.bmp', 16, new THREE.Vector3(0, 13, 25), Math.PI * 3 / 2))
         players.forEach(el => {
             el.nextBlock = this.board.pola[0]
             scene.add(el)

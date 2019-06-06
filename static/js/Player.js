@@ -1,6 +1,7 @@
 class Player extends THREE.Object3D {
-    constructor(modelSrc, textureSrc, scale, position, rotationy) {
+    constructor(name, modelSrc, textureSrc, scale, position, rotationy) {
         super()
+        this.name = name
         this.pos = 0
         this.nextBlock
         this.moves = 0
@@ -44,10 +45,19 @@ class Player extends THREE.Object3D {
     }
 
     move(ilePol) {
-        this.moves = ilePol - 1
-        this.pos++
-        this.nextBlock = game.board.pola[this.pos]
-        this.isMoving = true
+        if (this.pos + ilePol <= 33) {
+            this.moves = ilePol - 1
+            this.pos++
+            this.nextBlock = game.board.pola[this.pos]
+            this.isMoving = true
+        }
+        else {
+            ilePol = 34 - this.pos
+            this.moves = ilePol - 1
+            this.pos++
+            this.nextBlock = game.board.pola[this.pos]
+            this.isMoving = true
+        }
     }
     noMove() {
         this.moves = 0
@@ -57,37 +67,42 @@ class Player extends THREE.Object3D {
     }
     stand() {
         console.log("stop")
-        if (this.nextBlock.specialAction == true) {
-            if (this.nextBlock.specialActionDescription.length == 2) {
-                if (parseInt(this.nextBlock.specialActionDescription) > 0) {
-                    var howMuch = parseInt(this.nextBlock.specialActionDescription)
-                    this.move(howMuch)
-                    console.log("_______")
-                    console.log(this)
-                    //net.moveBonus({ ilePol: howMuch })
+        if (this.pos == 34 && game.winner == false) {
+            window.alert("Zwycięzcą jest " + this.name)
+            game.winner = true
+        }
+        if (game.winner == false) {
+            if (this.nextBlock.specialAction == true) {
+                if (this.nextBlock.specialActionDescription.length == 2) {
+                    if (parseInt(this.nextBlock.specialActionDescription) > 0) {
+                        var howMuch = parseInt(this.nextBlock.specialActionDescription)
+                        this.move(howMuch)
+                        console.log("_______")
+                        console.log(this)
+                        //net.moveBonus({ ilePol: howMuch })
+                    }
+                    else {
+                        var howMuch = parseInt(this.nextBlock.specialActionDescription)
+                        this.position.x = game.board.pola[this.pos + howMuch].position.x
+                        this.position.y = game.board.pola[this.pos + howMuch].position.y
+                        this.position.z = game.board.pola[this.pos + howMuch].position.z
+                        this.pos = this.pos + howMuch
+                        this.isMoving = false
+                        this.moves = 0
+                        this.nextBlock = game.board.pola[this.pos]
+                    }
                 }
-                else {
-                    var howMuch = parseInt(this.nextBlock.specialActionDescription)
-                    this.position.x = game.board.pola[this.pos + howMuch].position.x
-                    this.position.y = game.board.pola[this.pos + howMuch].position.y
-                    this.position.z = game.board.pola[this.pos + howMuch].position.z
-                    this.pos = this.pos + howMuch
-                    this.isMoving = false
-                    this.moves = 0
-                    this.nextBlock = game.board.pola[this.pos]
-                }
-            }
-            else if (this.nextBlock.specialActionDescription.length == 5) {
-                if (this.nextBlock.specialActionDescription[0] == "+") {
-                    this.extraValue += 1
-                    net.changeExtraValue({ extra: 1 })
-                }
-                else {
-                    this.extraValue -= 1
-                    net.changeExtraValue({ extra: -1 })
+                else if (this.nextBlock.specialActionDescription.length == 5) {
+                    if (this.nextBlock.specialActionDescription[0] == "+") {
+                        this.extraValue += 1
+                        net.changeExtraValue({ extra: 1 })
+                    }
+                    else {
+                        this.extraValue -= 1
+                        net.changeExtraValue({ extra: -1 })
+                    }
                 }
             }
         }
-
     }
 }

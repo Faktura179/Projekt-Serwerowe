@@ -131,21 +131,23 @@ class Ui {
             }
         }
         $("#move").on("click", function () {
-            if (game.rolling == false && net.myMove && game.players[net.player].extraRolls == 0) {
-                net.myMove = false
-                //var currentNumber = Math.floor(Math.random() * 6) + 1
-                var currentNumber = 2
-                game.currentNumber = currentNumber
-                currentNumber += game.players[net.player].extraValue
-                game.rolling = true
-                setTimeout(function () {
-                    game.rolling = false
-                    if (game.players[net.player].extraRolls == 0) {
-                        console.log("BEZ OPOZNIENIA")
-                        game.players[net.player].move(currentNumber)
-                        net.move({ ilePol: currentNumber })
-                    }
-                }, 2000)
+            if (game.winner == false) {
+                if (game.rolling == false && net.myMove && game.players[net.player].extraRolls == 0) {
+                    net.myMove = false
+                    //var currentNumber = Math.floor(Math.random() * 6) + 1
+                    var currentNumber = 6
+                    game.currentNumber = currentNumber
+                    currentNumber += game.players[net.player].extraValue
+                    game.rolling = true
+                    setTimeout(function () {
+                        game.rolling = false
+                        if (game.players[net.player].extraRolls == 0) {
+                            console.log("BEZ OPOZNIENIA")
+                            game.players[net.player].move(currentNumber)
+                            net.move({ ilePol: currentNumber })
+                        }
+                    }, 2000)
+                }
             }
         })
     }
