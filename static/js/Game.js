@@ -104,7 +104,43 @@ class Game {
             renderer.render(scene, camera)
         });
 
+        var loader = new THREE.FontLoader();
+        loader.load( 'models/Roboto-Medium_Medium.json',  ( font ) => {
+            var specjalne = [4,8,12,15,19,26,28,32]
+            // specjalne=[]
+            // for(let i =0;i<35;i++){
+            //     specjalne.push(i)
+            // }
+            specjalne.forEach(el=>{
+                var textGeometry = new THREE.TextGeometry( (el+1).toString(), {
 
+                    font: font,
+    
+                    size: 50,
+                    height: 10,
+                    curveSegments: 12,
+    
+                    bevelThickness: 1,
+                    bevelSize: 1,
+                    bevelEnabled: true
+    
+                });
+    
+                var textMaterial = new THREE.MeshPhongMaterial( 
+                    { color: 0xff0000, specular: 0xffffff }
+                );
+    
+                var mesh = new THREE.Mesh( textGeometry, textMaterial );
+                this.board.add( mesh );
+                mesh.position.copy(this.board.pola[parseInt(el)].position)
+                mesh.position.x-=20
+                if(parseInt(el)>=10)mesh.position.x-=15
+                mesh.position.y-=5
+                mesh.position.z+=20
+                mesh.rotation.x = Math.PI * 3 / 2;
+            })
+        }); 
+        
 
 
         var loader = new THREE.OBJLoader();
