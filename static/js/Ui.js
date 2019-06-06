@@ -21,12 +21,26 @@ class Ui {
                         if (game.openHelp == false) {
                             var info = document.createElement("div")
                             game.openHelp = true
-                            info.innerText = "WITAJ W GRZE WYPRODUKOWANEJ PRZEZ FATUŁA&STRYCZEK. \n Aby wykonac ruch, w czasie swojego ruchu wciśnij Enter/Spację lub kliknij przycisk 'RUCH'.\n Celem gdy jest dotarcie do mety, niektore pola mogą ci to ułatwić bądź utrudnić."
+                            info.innerText = "WITAJ W GRZE WYPRODUKOWANEJ PRZEZ FATUŁA&STRYCZEK. \n Aby wykonac ruch, w czasie swojego ruchu wciśnij Enter/Spację lub kliknij przycisk 'RUCH'.\n Celem gry jest dotarcie do mety, niektore pola mogą ci to ułatwić bądź utrudnić. \n"
                             info.id = "help"
                             var left = window.innerWidth
                             left = left / 2
                             left -= 325
                             info.style.left = left + "px"
+                            var select = document.createElement("select")
+                            select.id = "which"
+                            var op = document.createElement("option")
+                            op.value = null
+                            op.id = "toRemove"
+                            op.innerText = "-"
+                            select.appendChild(op)
+                            for (let i = 0; i < 35; i++) {
+                                var option = document.createElement("option")
+                                option.value = i + 1
+                                option.innerText = i + 1
+                                select.appendChild(option)
+                            }
+                            info.appendChild(select)
                             document.body.appendChild(info)
                         }
                         else {
@@ -37,14 +51,79 @@ class Ui {
                     else {
                         var info = document.createElement("div")
                         game.openHelp = true
-                        info.innerText = "WITAJ W GRZE WYPRODUKOWANEJ PRZEZ FATUŁA&STRYCZEK. \n Aby wykonac ruch, w czasie swojego ruchu kliknij Enter lub kliknij przycisk 'RUCH'.\n Celem gdy jest dotarcie do mety, niektore pola mogą ci to ułatwić bądź utrudnić."
+                        info.innerText = "WITAJ W GRZE WYPRODUKOWANEJ PRZEZ FATUŁA&STRYCZEK. \n Aby wykonac ruch, w czasie swojego ruchu wciśnij Enter/Spację lub kliknij przycisk 'RUCH'.\n Celem gry jest dotarcie do mety, niektore pola mogą ci to ułatwić bądź utrudnić. \n"
                         info.id = "help"
                         var left = window.innerWidth
                         left = left / 2
                         left -= 325
                         info.style.left = left + "px"
+                        var select = document.createElement("select")
+                        select.id = "which"
+                        var op = document.createElement("option")
+                        op.value = null
+                        op.id = "toRemove"
+                        op.innerText = "-"
+                        select.appendChild(op)
+                        for (let i = 0; i < 35; i++) {
+                            var option = document.createElement("option")
+                            option.value = i + 1
+                            option.innerText = i + 1
+                            select.appendChild(option)
+                        }
+                        info.appendChild(select)
                         document.body.appendChild(info)
                     }
+                    $("#which").on("change", function () {
+                        $("#toRemove").remove()
+                        $("#infoAbout").remove()
+                        var p = document.createElement("p")
+                        p.id = "infoAbout"
+                        var tabOfSpecialFields = [5, 9, 13, 16, 20, 27, 29, 33]
+                        var normal = true
+                        for (let i = 0; i < tabOfSpecialFields.length; i++) {
+                            if ($("#which").val() == tabOfSpecialFields[i]) {
+                                normal = false
+                            }
+                        }
+                        if (normal == true) {
+                            p.innerText = "Pole nr " + $("#which").val() + " jest zwyczajne."
+                            document.getElementById("help").appendChild(p)
+                        }
+                        else {
+                            if ($("#which").val() == 5) {
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                document.getElementById("help").appendChild(p)
+                            }
+                            else if ($("#which").val() == 9) {
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                document.getElementById("help").appendChild(p)
+                            }
+                            else if ($("#which").val() == 13) {
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                document.getElementById("help").appendChild(p)
+                            }
+                            else if ($("#which").val() == 16) {
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                document.getElementById("help").appendChild(p)
+                            }
+                            else if ($("#which").val() == 20) {
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                document.getElementById("help").appendChild(p)
+                            }
+                            else if ($("#which").val() == 27) {
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                document.getElementById("help").appendChild(p)
+                            }
+                            else if ($("#which").val() == 29) {
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                document.getElementById("help").appendChild(p)
+                            }
+                            else if ($("#which").val() == 33) {
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                document.getElementById("help").appendChild(p)
+                            }
+                        }
+                    })
                     break
                 default:
                     console.log(e.key)
@@ -55,7 +134,7 @@ class Ui {
             if (game.rolling == false && net.myMove && game.players[net.player].extraRolls == 0) {
                 net.myMove = false
                 //var currentNumber = Math.floor(Math.random() * 6) + 1
-                var currentNumber = 4
+                var currentNumber = 2
                 game.currentNumber = currentNumber
                 currentNumber += game.players[net.player].extraValue
                 game.rolling = true
