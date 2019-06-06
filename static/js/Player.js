@@ -68,30 +68,13 @@ class Player extends THREE.Object3D {
                 }
                 else {
                     var howMuch = parseInt(this.nextBlock.specialActionDescription)
-                    this.position.x = game.board.pola[this.pos - 1].position.x
-                    this.position.y = game.board.pola[this.pos - 1].position.y
-                    this.position.z = game.board.pola[this.pos - 1].position.z
-                    this.pos = this.pos - 1
+                    this.position.x = game.board.pola[this.pos + howMuch].position.x
+                    this.position.y = game.board.pola[this.pos + howMuch].position.y
+                    this.position.z = game.board.pola[this.pos + howMuch].position.z
+                    this.pos = this.pos + howMuch
                     this.isMoving = false
                     this.moves = 0
                     this.nextBlock = game.board.pola[this.pos]
-                }
-            }
-            else if (this.nextBlock.specialActionDescription.length == 4) {
-                if (this.nextBlock.specialActionDescription[0] == "+") {
-                    var amount = parseInt(this.nextBlock.specialActionDescription[1])
-                    this.extraRolls += amount
-                    net.changeExtraRolls({ extra: amount })
-                }
-                else {
-                    var amount = parseInt(this.nextBlock.specialActionDescription[1])
-                    amount = amount * -1
-                    if (this.extraRolls >= 0) {
-                        console.log("HALO")
-                        console.log(this.extraRolls)
-                        this.extraRolls += amount
-                        net.changeExtraRolls({ extra: amount })
-                    }
                 }
             }
             else if (this.nextBlock.specialActionDescription.length == 5) {
@@ -105,6 +88,6 @@ class Player extends THREE.Object3D {
                 }
             }
         }
-    }
 
+    }
 }

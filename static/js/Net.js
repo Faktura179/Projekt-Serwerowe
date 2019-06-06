@@ -51,15 +51,6 @@ class Net {
                 game.players[0].extraValue += data.extra
             }
         }.bind(this))
-        socket.on("changingRolls2", function (data) {
-            if (this.player == 0) {
-                console.log("ZEEEEEEEEEEEEEEEERO")
-                game.players[1].extraRolls += data.extra
-            } else {
-                console.log("JEEEEEEEEEDEEEEEEEEEEEN")
-                game.players[0].extraRolls += data.extra
-            }
-        }.bind(this))
     }
 
     move(argumenty) {
@@ -70,9 +61,5 @@ class Net {
     }
     changeExtraValue(change) {
         this.io.emit("changing", change)
-    }
-    changeExtraRolls(change) {
-        this.io.emit("changingRolls", change)
-
     }
 }

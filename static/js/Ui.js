@@ -52,9 +52,6 @@ class Ui {
             }
         }
         $("#move").on("click", function () {
-            console.log("--------")
-            console.log(game.players[net.player].extraRolls)
-            console.log("---------")
             if (game.rolling == false && net.myMove && game.players[net.player].extraRolls == 0) {
                 net.myMove = false
                 //var currentNumber = Math.floor(Math.random() * 6) + 1
@@ -70,15 +67,6 @@ class Ui {
                         net.move({ ilePol: currentNumber })
                     }
                 }, 2000)
-            }
-            else {
-                if (game.players[net.player].extraRolls < 0) {
-                    console.log("OPÓŹNIENIE")
-                    net.myMove = false
-                    game.players[net.player].extraRolls += 1
-                    game.players[net.player].noMove()
-                    net.move({ ilePol: 0 })
-                }
             }
         })
     }
