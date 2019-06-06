@@ -91,35 +91,35 @@ class Ui {
                         }
                         else {
                             if ($("#which").val() == 5) {
-                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje przesunięcie się o 2 pola do przodu."
                                 document.getElementById("help").appendChild(p)
                             }
                             else if ($("#which").val() == 9) {
-                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje jeden dodatkowy rzut kostką."
                                 document.getElementById("help").appendChild(p)
                             }
                             else if ($("#which").val() == 13) {
-                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje przesunięcie się o 2 pola do tyłu."
                                 document.getElementById("help").appendChild(p)
                             }
                             else if ($("#which").val() == 16) {
-                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje dodanie jednego pola do ruchu na stałe."
                                 document.getElementById("help").appendChild(p)
                             }
                             else if ($("#which").val() == 20) {
-                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje odjęcie jednego pola od ruchu na stałe."
                                 document.getElementById("help").appendChild(p)
                             }
                             else if ($("#which").val() == 27) {
-                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje jeden dodatkowy rzut kostką."
                                 document.getElementById("help").appendChild(p)
                             }
                             else if ($("#which").val() == 29) {
-                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje przesunięcie się o 1 pole do przodu."
                                 document.getElementById("help").appendChild(p)
                             }
                             else if ($("#which").val() == 33) {
-                                p.innerText = "Pole nr " + $("#which").val() + " powoduje ."
+                                p.innerText = "Pole nr " + $("#which").val() + " powoduje przesunięcie się o 9 pól do tyłu."
                                 document.getElementById("help").appendChild(p)
                             }
                         }
